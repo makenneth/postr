@@ -1,0 +1,17 @@
+<form action="<%= comments_url %>" method="post">
+  <input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+  <input type="hidden"
+         name="comment[commentable_id]"
+         value="<%= source.id %>">
+  <input type="hidden"
+         name="post_id"
+         value="<%= post_id %>">
+  <input type="hidden"
+         name="comment[commentable_type]"
+         value="<%= source.class.name %>">
+
+  <textarea name="comment[body]" rows="2" cols="40"></textarea>
+  <input type="submit">
+</form>

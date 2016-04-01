@@ -1,0 +1,14 @@
+<h1><%= @post.title %></h1>
+
+<p>
+  <%= @post.content %>
+</p>
+<% @post.comments.each do |comment| %>
+  <div>
+    <b><%= comment.author.username %></b>
+    <p><%= comment.body %></p>
+  </div>
+<% end %>
+<%= render "comments/form", source: @post, post_id: @post.id %>
+<br>
+<%= link_to "Back to sub-forum", sub_url(@post.sub_id) %>

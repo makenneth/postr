@@ -1,0 +1,16 @@
+<p>
+  <%= @sub.description %>
+</p>
+<%= link_to "Make a post", new_sub_post_url(@sub) %>
+<br>
+<ul>
+  <% @sub.posts.each do |post| %>
+  <li><% unless post.url == "" %>
+      <a href="<%= post.url %>"><%= post.title %></a>
+    <% else %>
+      <%= link_to post.title, post_url(post) %>
+    <% end %>
+  <% end %></li>
+</ul>
+<br>
+<%= link_to "Back to Home Page", subs_url %>
