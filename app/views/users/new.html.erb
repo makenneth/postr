@@ -1,14 +1,19 @@
-<h1>Sign Up</h1>
+<div class='col-md-8 col-sm-6 col-sm-offset-3 col-md-offset-2'>
+   <h1>Sign Up</h1>
 
-<form action= "<%= users_url %>" method="post">
-  <input type="hidden" name="authenticity_token" value=" <%= form_authenticity_token %> " >
-  <label> User Name
-    <input type="text" name="user[username]">
-  </label>
-  <label> Password
-    <input type="password" name="user[password]">
-  </label>
-  <input type="submit" value="Sign Up">
-</form>
+   <form action= "<%= users_url %>" method="post">
+     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" >
+     <div class="form-group">
+        <label> Username</label>
+        <input type="text" name="user[username]"
+               class="form-control" placeholder="username">
+     </div>
+     <div class="form-group">
+        <label> Password</label>
+        <input type="password" name="user[password]"
+               class='form-control' placeholder="password">
 
-<p>Find me in app/views/users/new.html.erb</p>
+     </div>
+     <input type="submit" value="Sign Up" class='btn btn-success'>
+   </form>
+</div>

@@ -11,9 +11,10 @@
 #
 
 class User < ActiveRecord::Base
+  after_initialize :ensure_session_token
   validates :username, presence: true
   validates :password, length: {minimum: 5, allow_nil: true}
-  
+
   attr_reader :password
 
   def self.find_by_credentials(username, password)
@@ -22,6 +23,11 @@ class User < ActiveRecord::Base
       return user
     else
     end
+  end
+
+  def reset_session_token!
+     self.session_token = SecureRandom.urlsafe_base64
+     self.save
   end
 
   def is_password?(password)
@@ -33,6 +39,7 @@ class User < ActiveRecord::Base
     self.password_digest = BCrypt::Password.create(password)
   end
 
+  private
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64
   end

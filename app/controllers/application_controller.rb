@@ -9,5 +9,17 @@ class ApplicationController < ActionController::Base
     )
   end
 
+  def is_logged_in?
+   !!current_user
+  end
+
+  def redirect_unless_logged_in!
+    redirect_to new_session_url unless is_logged_in?
+  end
+
+  def log_in!(user)
+     user.reset_session_token!
+     session[:session_token] = user.session_token
+  end
   helper_method :current_user
 end

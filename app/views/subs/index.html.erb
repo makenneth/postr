@@ -1,5 +1,11 @@
-<h1>Sub-Forums</h1>
-<% @subs.each do |sub| %>
-  <li><%= link_to sub.title, sub_url(sub) %></li>
+<h1>Subs</h1>
+<h3>Categories (Implement this)</h3>
+<% if @subs.empty? %>
+   <p>Be the first to create a sub!</p>
 <% end %>
-<%= link_to "Add New Sub-Forum", new_sub_url %>
+<% @subs.each do |sub| %>
+   <div class="col-md-3">
+     <li style='font-size: 18px'><%= link_to sub.title, sub_url(sub) %></li>
+   </div>
+
+<% end %>

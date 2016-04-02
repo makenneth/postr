@@ -10,12 +10,16 @@ class SessionsController < ApplicationController
       params[:user][:password]
     )
     if @user
-      @user.session_token = SecureRandom.urlsafe_base64
-      @user.save
-      session[:session_token] = @user.session_token
+      log_in!(@user)
       redirect_to subs_url
     else
+      render :new
     end
   end
 
+  def destroy
+     @user.reset_session_token!
+     session[:session_token] = nil
+     redirect_to subs_url
+  end
 end

@@ -1,16 +1,4 @@
-<h1>New Subforum</h1>
-
-<form action="<%= subs_url %>" method="post">
-  <input type="hidden"
-         name="authenticity_token"
-         value="<%= form_authenticity_token %>" >
-
-  <label>Title
-    <input type="text" name="sub[title]" value="<%= @sub.title %>">
-  </label>
-  <br>
-  <br>
-  <textarea name="sub[description]"
-        rows="3"><%= @sub.description %></textarea>
-  <input type="submit">
-</form>
+<div class='col-md-8 col-sm-8 col-sm-offset-2 col-md-offset-2'>
+   <h1>New Subs</h1>
+   <%= render "form", sub: @sub %>
+</div>

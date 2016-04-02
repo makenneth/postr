@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   get 'comments/new'
 
-  resources :users, except: [:index, :show]
+  resources :users, except: [:show]
   resource :session, only: [:new, :create, :destroy]
   resources :subs do
     resources :posts, only: [:new, :create]

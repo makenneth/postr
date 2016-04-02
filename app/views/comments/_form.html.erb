@@ -11,7 +11,10 @@
   <input type="hidden"
          name="comment[commentable_type]"
          value="<%= source.class.name %>">
+  <div class="form-group">
+     <label for="comment[body]">Comment</label>
+     <textarea name="comment[body]" rows="2" class='form-control'><%= @comment.body %></textarea>
+  </div>
 
-  <textarea name="comment[body]" rows="2" cols="40"></textarea>
-  <input type="submit">
+  <input type="submit" class='btn btn-success'>
 </form>
