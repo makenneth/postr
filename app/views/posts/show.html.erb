@@ -1,14 +1,16 @@
-<h1><%= @post.title %></h1>
+<div class="col-md-8 col-md-offset-2">
 
-<p>
-  <%= @post.content %>
-</p>
-<% @post.comments.each do |comment| %>
-  <div>
-    <b><%= comment.author.username %></b>
-    <p><%= comment.body %></p>
-  </div>
-<% end %>
-<%= render "comments/form", source: @post, post_id: @post.id %>
-<br>
-<%= link_to "Back to sub-forum", sub_url(@post.sub_id) %>
+   <h1><%= @post.title %></h1>
+   <p> <%= @post.content %> </p>
+   <p style='font-size: 14px'>submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.author.username %></p>
+   <p style='font-size: 12px; font-weight: bold;'><%= @post.comments.count %> Comments</p>
+   <%= render "comments/form", source: @post, post_id: @post.id %>
+   <div style="border: 1px solid gray; padding: 10px;">
+      <% @post.comments.each do |comment| %>
+        <div style="border: 1px solid gray; padding: 10px;">
+           <%= compose_all_sub_comments(comment) %>
+        </div>
+      <% end %>
+   </div>
+   <%= link_to "Back to sub-forum", sub_url(@post.sub_id) %>
+</div>

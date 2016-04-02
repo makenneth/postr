@@ -12,9 +12,11 @@
          name="comment[commentable_type]"
          value="<%= source.class.name %>">
   <div class="form-group">
-     <label for="comment[body]">Comment</label>
+     <label for="comment[body]">
+        <%= source.class.name == "Comment" ? "Add a sub-comment" : "Comment"%>
+     </label>
      <textarea name="comment[body]" rows="2" class='form-control'><%= @comment.body %></textarea>
+     <input type="submit" class="btn">
   </div>
 
-  <input type="submit" class='btn btn-success'>
 </form>
