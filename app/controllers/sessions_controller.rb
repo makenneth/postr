@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-     @user.reset_session_token!
+     current_user.reset_session_token!
      session[:session_token] = nil
      redirect_to subs_url
   end

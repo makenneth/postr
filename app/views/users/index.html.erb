@@ -4,15 +4,24 @@
       <th>Username</th>
       <th>Created_at</th>
       <th>Admin</th>
-      <th>Moderator</th>
+      <th>Moderator</th>  <!--need a join table to show moderators -->
    </tr>
    <% @users.each do |user| %>
       <tr>
          <td><%= user.id %></td>
          <td><%= user.username %></td>
          <td><%= user.created_at %></td>
+         <td><%= user.admin %></td>
          <td>True</td>
-         <td>True</td>
+         <% if current_user.is_super_admin? %>
+            <% if user.is_admin? %>
+               <!-- <td><%#= link_to "Remove Admin", user_remove_admin, method: :delete %></td> -->
+            <% else %>
+               <td><%#= link_to "Set Admin", user_add_new_admin, method: :post %></td>
+            <% end %>
+         <% end %>
+
+
       <tr>
    <% end %>
 

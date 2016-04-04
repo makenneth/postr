@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+   root 'subs#index'
 
-  get 'comments/new'
-
-  resources :users, except: [:show]
+  resources :users, except: [:show] do
+       post 'add_admin', on: :member
+       post 'remove_admin', on: :member
+    end
   resource :session, only: [:new, :create, :destroy]
   resources :subs do
     resources :posts, only: [:new, :create]

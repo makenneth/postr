@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+   include PostsHelper
+
   def new
     @post = Post.new
     render :new
@@ -8,6 +10,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.author = current_user
     @post.sub_id = params[:sub_id]
+    @post.url = ensure_valid_link(params[:post][:url])
     if @post.save
       redirect_to sub_url(params[:sub_id])
     else
@@ -26,6 +29,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :url, :content, sub_ids:[])
+    params.require(:post).permit(:title, :content, sub_ids:[])
   end
 end

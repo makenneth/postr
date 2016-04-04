@@ -16,6 +16,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def add_new_admin
+     @user = User.find(params[:user_id])
+     @user.toggle(:admin)
+     redirect_to users_url
+  end
+
+  def remove_admin
+     @user = User.find(params[:user_id])
+       @user.toggle(:admin)
+     redirect_to users_url
+  end
+
   private
 
   def user_params

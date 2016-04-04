@@ -12,8 +12,13 @@
 
 class User < ActiveRecord::Base
   after_initialize :ensure_session_token
-  validates :username, presence: true
-  validates :password, length: {minimum: 5, allow_nil: true}
+  validates :username, :session_token, :password_digest, presence: true
+  validates :password, length: {minimum: 6, allow_nil: true}
+  has_many :moderating_subs,
+   foreign_key: :moderator_id,
+   primary_key: :id,
+   class_name: :Sub,
+   inverse_of: :moderator
 
   attr_reader :password
 
@@ -37,6 +42,18 @@ class User < ActiveRecord::Base
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
+  end
+
+  def is_super_admin?
+     self.super_admin
+  end
+
+  def is_admin?
+    self.admin
+  end
+
+  def is_moderator?
+
   end
 
   private

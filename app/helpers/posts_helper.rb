@@ -1,4 +1,13 @@
 module PostsHelper
+   def ensure_valid_link(url)
+      if url =~ /^http[s]?:\/\/$/
+         return ""
+      else
+         return url if url =~ /^http[s]?:\/\//
+         "http://" + url
+      end
+   end
+
    def compose_all_sub_comments(comment)
       comment_fragment = div_for_sub_comments(comment)
       sub_comments = comment.comments

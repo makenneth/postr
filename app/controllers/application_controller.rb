@@ -5,12 +5,24 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by(
-    session_token: session[:session_token]
-    )
+      session_token: session[:session_token]
+      )
   end
 
   def is_logged_in?
    !!current_user
+  end
+
+  def is_super_admin?
+     current_user.super_admin?
+  end
+
+  def is_mod_to_sub?
+     @sub.moderators.include?(current_user)
+  end
+
+  def redirect_unless_is_mod!
+     redirect_to subs_url unless is_mod_to_sub?
   end
 
   def redirect_unless_logged_in!
@@ -21,5 +33,6 @@ class ApplicationController < ActionController::Base
      user.reset_session_token!
      session[:session_token] = user.session_token
   end
-  helper_method :current_user
+
+  helper_method :current_user, :is_super_admin?, :is_mod_to_sub?
 end

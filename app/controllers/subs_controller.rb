@@ -1,5 +1,5 @@
 class SubsController < ApplicationController
-  before_action :redirect_unless_logged_in!, only: [:create, :edit]
+  before_action :redirect_unless_is_mod!, only: [:edit, :update]
 
   def index
     @subs = Sub.all
@@ -13,10 +13,10 @@ class SubsController < ApplicationController
 
   def create
     @sub = Sub.new(sub_params)
-    @sub.moderator = current_user
     if @sub.save
       redirect_to sub_url(@sub)
     else
+      flash.now[:errors] = @sub.errors.full_messages
       render :new
     end
   end
@@ -42,6 +42,6 @@ class SubsController < ApplicationController
   end
   private
   def sub_params
-    params.require(:sub).permit(:title, :description)
+    params.require(:sub).permit(:title, :description, moderator_ids:[])
   end
 end
