@@ -1,0 +1,11 @@
+<% Sub.all.each do |sub| %>
+   <div class="col-md-2">
+      <input type="checkbox" class='hidden'
+        name="post[sub_ids][]" value="">
+      <div class="form-group">
+        <label><%= sub.title %></label>
+        <input type="checkbox" class='form-control'
+        name="post[sub_ids][]" value="<%= sub.id %>">
+      </div>
+   </div>
+<% end %>

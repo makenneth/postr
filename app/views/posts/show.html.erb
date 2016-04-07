@@ -1,10 +1,17 @@
+         <%= link_to "Back to sub-forum", sub_url(@post.sub_id) %>
 <div class="col-md-12">
+   <div class="each-post-detail">
+      <span class='vote-in-show'>
+         <%= link_to "", up_vote_post_url(@post), class: "glyphicon glyphicon-triangle-top score"%>
+         <p class='score score-count'><%= @post.count %></p>
+         <%= link_to "", down_vote_post_url(@post), class: "glyphicon glyphicon-triangle-bottom score"%>
+      </span>
+         <h1><%= @post.title %></h1>
+         <p> <%= @post.content %> </p>
 
-   <h1><%= @post.title %></h1>
-   <%= link_to "Back to sub-forum", sub_url(@post.sub_id) %>
-   <p> <%= @post.content %> </p>
-   <p style='font-size: 14px'>submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.author.username %></p>
-   <p style='font-size: 12px; font-weight: bold;'><%= @post.comments.count %> Comments</p>
+      <p style='font-size: 14px'>submitted <%= time_ago_in_words(@post.created_at) %> ago by <%= @post.author.username %></p>
+      <p style='font-size: 12px; font-weight: bold;'><%= @post.comments.count %> Comments</p>
+   </div>
    <%= render "comments/form", source: @post, post_id: @post.id %>
    <div style="border: 1px solid gray; padding: 10px;">
       <% @post.comments.each do |comment| %>

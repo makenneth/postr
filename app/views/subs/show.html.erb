@@ -6,29 +6,9 @@
       <% end %>
    <dd style='margin-left: 5px; border: 1px solid; padding: 20px; border-radius: 3px'><%= @sub.description %></dd>
 </dl>
-<div class='post-list'>
-  <% @sub.posts.each do |post| %>
-     <div class='each-post-detail'>
-        <span class='vote'>
-           <%= link_to "", up_vote_post_url(post), class: "glyphicon glyphicon-triangle-top score"%>
-           <p class='score score-count'><%= post.count %></p>
-           <%= link_to "", down_vote_post_url(post), class: "glyphicon glyphicon-triangle-bottom score"%>
-        </span>
 
-        <li>
-           <% unless post.url == "" %>
-              <%= link_to post.title, post.url, class: 'post-title' %>
-           <% else %>
-              <%= link_to post.title, post_url(post), class: 'post-title'%>
-           <% end %>
-        </li>
-        <li class='post-detail'>submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.author.username %></li>
-        <%= link_to "#{post.comments.count} Comments", post_url(post), class: 'post-detail' %>
-     </div>
-  <% end %>
+<%= render "sub_posts", sub: @sub %>
+
+<div>
+   <%= link_to "Make a post", new_sub_post_url(@sub) %>
 </div>
-<br>
-
-<%= link_to "Make a post", new_sub_post_url(@sub) %>
-
-<%= link_to "Back to Home Page", subs_url %>

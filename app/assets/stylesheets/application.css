@@ -58,3 +58,16 @@
 .post-title {
    font-size: 18px;
 }
+.vote-in-show {
+   float: left;
+   font: 30px sans-serif;
+   margin-right: 15px;
+}
+.glyphicon {
+   text-decoration: none;
+   color: black;
+}
+.glyphicon:hover {
+   text-decoration: none;
+   color: black;
+}
