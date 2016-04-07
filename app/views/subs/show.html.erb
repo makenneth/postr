@@ -1,6 +1,6 @@
 <dl>
    <dt style='font-size: 24px'><%= @sub.title %>
-      <% if is_super_admin? || is_mod_to_sub? %>
+      <% if current_user && (is_super_admin? || is_mod_to_sub?) %>
          <span style='float: right; font-size: 16px'><%= link_to "Edit the sub", edit_sub_url(@sub) %></span></dt>
       <% end %>
    <dd style='margin-left: 5px; border: 1px solid; padding: 20px; border-radius: 3px'><%= @sub.description %></dd>
@@ -21,5 +21,5 @@
 <br>
 
 <%= link_to "Make a post", new_sub_post_url(@sub) %>
-<!-- #move to the navbar -->
+
 <%= link_to "Back to Home Page", subs_url %>

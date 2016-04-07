@@ -16,22 +16,22 @@
    <textarea name="sub[description]" rows="10"
          id='description' class='form-control'><%= @sub.description %></textarea>
 </div>
-<% if action_method == "POST" %>
-<label>Set the moderator(s)</label>
-   <div class="form-group row">
-      <% User.all.each do |user| %>
-      <div class="form-group col-md-2">
-         <label for="<%= user.id %>"><%= user.username %></label>
-         <input type="checkbox" name="sub[moderator_ids][]"
-               id='<%= user.id %>' class='form-control'
-               value="<%= user.id%>">
-   <!-- okay...so we need a join table for this to work... -->
-   <!-- moderation  moderator_ids sub_ids -->
-   <!-- sub has many moderators and user has many moderating subs -->
 
+   <% if is_super_admin? || action_method == "POST" %>
+   <label>Set the moderator(s)</label>
+      <div class="form-group row">
+         <input type="hidden" name="sub[moderator_ids][]" value="">
+
+         <% User.all.each do |user| %>
+         <div class="form-group col-md-2">
+            <label for="<%= user.id %>"><%= user.username %></label>
+            <input type="checkbox" name="sub[moderator_ids][]"
+                  id='<%= user.id %>' class='form-control'
+                  value="<%= user.id%>"
+                  <%= "checked" if @sub.moderator_ids.include?(user.id) %>>
+         </div>
+         <% end %>
       </div>
-      <% end %>
-   </div>
-<% end %>
+   <% end %>
   <input type="submit" class='btn btn-success'>
 </form>

@@ -8,17 +8,23 @@
 #  session_token   :string
 #  created_at      :datetime
 #  updated_at      :datetime
+#  admin           :boolean          default("f")
+#  super_admin     :boolean          default("f")
 #
 
 class User < ActiveRecord::Base
   after_initialize :ensure_session_token
   validates :username, :session_token, :password_digest, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
-  has_many :moderating_subs,
+
+  has_many :moderator_subs,
    foreign_key: :moderator_id,
    primary_key: :id,
-   class_name: :Sub,
-   inverse_of: :moderator
+   class_name: :ModeratorSub
+
+   has_many :subs,
+      through: :moderator_subs,
+      source: :sub
 
   attr_reader :password
 
@@ -49,7 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    self.admin
+     self.admin
   end
 
   def is_moderator?

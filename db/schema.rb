@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160403030036) do
+ActiveRecord::Schema.define(version: 20160407001159) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   null: false
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20160403030036) do
 
   add_index "comments", ["author_id"], name: "index_comments_on_author_id"
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id"
+
+  create_table "moderator_subs", force: :cascade do |t|
+    t.integer  "moderator_id", null: false
+    t.integer  "sub_id",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "moderator_subs", ["moderator_id"], name: "index_moderator_subs_on_moderator_id"
+  add_index "moderator_subs", ["sub_id"], name: "index_moderator_subs_on_sub_id"
 
   create_table "post_subs", force: :cascade do |t|
     t.integer  "sub_id",     null: false
@@ -51,12 +61,9 @@ ActiveRecord::Schema.define(version: 20160403030036) do
   create_table "subs", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "moderator_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
-
-  add_index "subs", ["moderator_id"], name: "index_subs_on_moderator_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

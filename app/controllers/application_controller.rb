@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_mod_to_sub?
-     @sub.moderators.include?(current_user)
+     Sub.find(params[:id]).moderators.include?(current_user) || is_super_admin?
   end
 
   def redirect_unless_is_mod!
