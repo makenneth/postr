@@ -27,6 +27,18 @@ class PostsController < ApplicationController
     render :show
   end
 
+  def up_vote
+     post = Post.find(params[:id])
+     post.up_vote
+     redirect_to :back
+  end
+
+  def down_vote
+     post = Post.find(params[:id])
+     post.down_vote
+     redirect_to :back
+  end
+
   private
   def post_params
     params.require(:post).permit(:title, :content, sub_ids:[])

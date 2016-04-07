@@ -4,11 +4,18 @@ Rails.application.routes.draw do
   resources :users, except: [:show] do
        post 'add_admin', on: :member
        post 'remove_admin', on: :member
-    end
+  end
   resource :session, only: [:new, :create, :destroy]
   resources :subs do
     resources :posts, only: [:new, :create]
   end
-  resources :posts, except: [:new, :create, :index]
-  resources :comments, only: [:new, :create]
+
+  resources :posts, except: [:new, :create, :index] do
+     get 'up_vote', on: :member
+     get 'down_vote', on: :member
+  end
+  resources :comments, only: [:new, :create] do
+     get 'up_vote', on: :member
+     get 'down_vote', on: :member
+  end
 end

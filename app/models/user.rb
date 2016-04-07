@@ -58,10 +58,6 @@ class User < ActiveRecord::Base
      self.admin
   end
 
-  def is_moderator?
-
-  end
-
   private
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64

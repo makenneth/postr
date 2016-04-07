@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407005151) do
+ActiveRecord::Schema.define(version: 20160407025552) do
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "commentable_id",   null: false
-    t.string   "commentable_type", null: false
-    t.integer  "author_id",        null: false
-    t.string   "body",             null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "commentable_id",               null: false
+    t.string   "commentable_type",             null: false
+    t.integer  "author_id",                    null: false
+    t.string   "body",                         null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "count",            default: 0
   end
 
   add_index "comments", ["author_id"], name: "index_comments_on_author_id"
@@ -51,8 +52,9 @@ ActiveRecord::Schema.define(version: 20160407005151) do
     t.text     "content"
     t.integer  "sub_id"
     t.integer  "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "count",      default: 0
   end
 
   add_index "posts", ["author_id"], name: "index_posts_on_author_id"
@@ -76,21 +78,5 @@ ActiveRecord::Schema.define(version: 20160407005151) do
   end
 
   add_index "users", ["username"], name: "index_users_on_username"
-
-  create_table "vote_counts", force: :cascade do |t|
-    t.integer  "vote_id",                null: false
-    t.integer  "count",      default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "vote_counts", ["vote_id"], name: "index_vote_counts_on_vote_id"
-
-  create_table "votes", force: :cascade do |t|
-    t.integer  "voteable_id",   null: false
-    t.string   "voteable_type", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
 
 end

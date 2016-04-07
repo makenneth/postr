@@ -9,10 +9,21 @@
 #  body             :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  count            :integer          default("0")
 #
 
 class Comment < ActiveRecord::Base
   belongs_to :author, foreign_key: :author_id, class_name: :User
   belongs_to :commentable, polymorphic: true
-  has_many :comments, as: :commentable
+
+  def down_vote
+     self.count -= 1
+     self.save
+  end
+
+  def up_vote
+     self.count += 1
+     self.save
+  end
+
 end
