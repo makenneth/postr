@@ -14,7 +14,9 @@ class Sub < ActiveRecord::Base
   has_many :moderators,
    through: :moderator_subs,
    source: :moderator
-   
+
   has_many :post_subs
   has_many :posts, through: :post_subs, source: :post
+
+  has_many :votes, as: :voteable
 end
