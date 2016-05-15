@@ -11,11 +11,12 @@ Rails.application.routes.draw do
   end
 
   resources :posts, except: [:new, :create, :index] do
-     get 'up_vote', on: :member
-     get 'down_vote', on: :member
+      post 'up_vote', on: :member
+      post 'down_vote', on: :member
   end
+
   resources :comments, only: [:new, :create] do
-     get 'up_vote', on: :member
-     get 'down_vote', on: :member
+     post 'up_vote', on: :member
+     post 'down_vote', on: :member
   end
 end

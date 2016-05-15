@@ -28,18 +28,28 @@ class PostsController < ApplicationController
   end
 
   def up_vote
-     post = Post.find(params[:id])
+     vote = Vote.new(vote_params)
+     vote.count = ""
+     #maybe try to find if such entry exists, if yes then
      post.up_vote
      redirect_to :back
   end
 
   def down_vote
-     post = Post.find(params[:id])
+     post = Vote.create()
      post.down_vote
      redirect_to :back
   end
 
   private
+  def vote_params
+     {
+        user_id: current_user.id,
+        voteable_type: "Post",
+        voteable_id: params[:post_id]
+     }
+  end
+
   def post_params
     params.require(:post).permit(:title, :content, sub_ids:[])
   end

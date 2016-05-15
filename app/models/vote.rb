@@ -15,5 +15,5 @@ class Vote < ActiveRecord::Base
    validates :voteable_id, uniqueness: {scope: :user_id, :voteable_type }
 
    belongs_to :voteable, polymorphic: true
-   
+
 end
